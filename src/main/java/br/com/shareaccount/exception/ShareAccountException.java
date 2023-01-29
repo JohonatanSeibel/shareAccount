@@ -2,9 +2,9 @@ package br.com.shareaccount.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class ClientException extends ConvertibleException {
+public class ShareAccountException  extends ConvertibleException{
 
-    public ClientException(String msg){super(msg);}
+    public ShareAccountException(String msg){super(msg);}
 
     @Override
     public HttpStatus getStatus() {

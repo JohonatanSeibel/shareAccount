@@ -22,8 +22,6 @@ import java.util.stream.Collectors;
 @Validated
 public class TransactionService {
 
-    @Autowired
-    private UtilService utilService;
     public Map<String, BigDecimal> getMapAmountByClient(List<Customer> customers){
         var map = new HashMap<String,BigDecimal>();
         for(Customer customer: customers){
@@ -47,7 +45,7 @@ public class TransactionService {
             var listTransactionTypes = customer.getTransactionPostings().stream()
                     .filter(t -> operationTypeEnum.equals(t.getOperationType())).collect(Collectors.toList());
             for (Transaction transaction : listTransactionTypes) {
-                var value = this.getValueByPercentage(transaction, accountAmount);
+                var value = this.getValueByPercentageOrCurrency(transaction, accountAmount);
                if(TransactionTypeEnum.PARTIAL.equals(transaction.getTransactionType())){
                    partialValue = partialValue.add(value);
                }else{
@@ -60,9 +58,9 @@ public class TransactionService {
         return map;
     }
 
-    private BigDecimal getValueByPercentage(Transaction transaction, BigDecimal accountAmount){
+    private BigDecimal getValueByPercentageOrCurrency(Transaction transaction, BigDecimal accountAmount){
       return ValueTypeEnum.CURRENCY.equals(transaction.getValueType()) ? transaction.getValue() :
-              utilService.getValueByPercentage(transaction.getValue(), accountAmount);
+              UtilService.getValueByPercentage(transaction.getValue(), accountAmount);
     }
 
     private void validateClientTransaction(Transaction transaction){
@@ -70,7 +68,7 @@ public class TransactionService {
             throw new ClientException("Client cannot create transactions of type FULL");
 
         if(!OperationTypeEnum.CREDIT.equals(transaction.getOperationType()))
-            throw new ClientException("Client cannot have debit transaction.");
+            throw new ClientException("Client cannot have debit transaction");
 
         if(!ValueTypeEnum.CURRENCY.equals(transaction.getValueType()))
             throw new ClientException("Client cannot have percentage currency transaction");

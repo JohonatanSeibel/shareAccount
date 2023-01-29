@@ -26,7 +26,7 @@ public class ShareAccountController {
 
     private final ShareAccountService shareAccountService;
     @ResponseStatus(code = HttpStatus.OK)
-    @GetMapping(path = "shareAccount", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/shareAccount", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Returns Share Account With Friends")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Account successfully listed."),
             @ApiResponse(code = 400, message = "Bad Request"),

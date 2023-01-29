@@ -26,7 +26,7 @@ public class CustomerService {
     private TransactionService transactionService;
 
     public Map<String, BigDecimal>  getMapAmountByClient(List<Customer> customers){
-        log.info("Separating customers from the establishment.");
+        log.info("Separating customers from the establishment");
         var clientsAccount = this.getClientAccount(customers);
         if(clientsAccount == null || clientsAccount.isEmpty())
             throw new ClientException("Client Not Found");

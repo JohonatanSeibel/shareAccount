@@ -1,5 +1,5 @@
 server:
- port: 8082
+ port: 8080
 
 feign:
  client:
@@ -11,3 +11,4 @@ feign:
 
 walletclient:
  baseUrl: "https://api.mercadopago.com"
+ token: "Bearer TEST-2933677929195917-012709-99566d73916680b8b167cf1201699e3c-443418201"

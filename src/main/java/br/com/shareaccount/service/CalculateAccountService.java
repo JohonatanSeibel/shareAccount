@@ -1,9 +1,6 @@
 package br.com.shareaccount.service;
 
-import br.com.shareaccount.client.WalletClient;
-import br.com.shareaccount.domain.Customer;
 import br.com.shareaccount.dto.CustomerDTO;
-import br.com.shareaccount.dto.WalletDTO;
 import br.com.shareaccount.enumeration.TransactionTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +16,12 @@ import java.util.Map;
 @Slf4j
 @Validated
 public class CalculateAccountService {
-
-    @Autowired
-    private UtilService utilService;
-
     @Autowired
     private WalletService walletService;
     public List<CustomerDTO> getCalculatedCustomers(Map<String, BigDecimal> mapClients,
                                                     Map<TransactionTypeEnum, BigDecimal> mapDebit,
                                                     Map<TransactionTypeEnum, BigDecimal> mapCredit){
-        var accountAmount = utilService.getAmountValue(mapClients);
+        var accountAmount = UtilService.getAmountValue(mapClients);
 
         var quantityClients = mapClients.size();
 
@@ -39,7 +32,9 @@ public class CalculateAccountService {
 
             var fullValueToClient = new BigDecimal(map.getValue().toString());
 
-            var percentageAccountByClient = utilService.getPercentageByValue(fullValueToClient, accountAmount);
+            var percentageAccountByClient = this.getPercentageAccountByClient(accountAmount,
+                    fullValueToClient,
+                    quantityClients);
 
             var additionalCreditValue = this.calculateTotalAdd(mapCredit,
                     percentageAccountByClient, quantityClients);
@@ -53,7 +48,8 @@ public class CalculateAccountService {
             var customer = CustomerDTO.builder()
                     .name(name.toString())
                     .valueToPay(valueToPay)
-                    .billingWalletLink(walletService.getBillingWallet(valueToPay, name.toString()))
+                    .billingWalletLink(valueToPay.compareTo(BigDecimal.ZERO) > 0 ?
+                            walletService.getBillingWallet(valueToPay, name.toString()) : null)
                     .build();
             customers.add(customer);
         }
@@ -62,7 +58,7 @@ public class CalculateAccountService {
 
     private BigDecimal calculateTotalAdd(Map<TransactionTypeEnum, BigDecimal> map,
                                          BigDecimal percentage, Integer quantityClients){
-        var partialValue = utilService.getValueByPercentage(percentage, map.get(TransactionTypeEnum.PARTIAL));
+        var partialValue = UtilService.getValueByPercentage(percentage, map.get(TransactionTypeEnum.PARTIAL));
         var fullValue = map.get(TransactionTypeEnum.FULL).divide(new BigDecimal(quantityClients));
         var total = partialValue.add(fullValue);
         return total;
@@ -73,5 +69,19 @@ public class CalculateAccountService {
                                                 BigDecimal additionalDebitValue){
         var totalToPay = (fullValue.add(additionalCreditValue)).subtract(additionalDebitValue);
         return totalToPay;
+    }
+
+    private BigDecimal getPercentageAccountByClient(BigDecimal accountAmount,
+                                                    BigDecimal fullValueToClient,
+                                                    Integer quantityClients ){
+        var percentageAccountByClient = BigDecimal.ZERO;
+        if(accountAmount.compareTo(BigDecimal.ZERO)>0) {
+            percentageAccountByClient = percentageAccountByClient
+                    .add(UtilService.getPercentageByValue(fullValueToClient, accountAmount));
+        }else{
+            percentageAccountByClient = percentageAccountByClient
+                    .add(UtilService.getPercentageByQuantityClients(quantityClients));
+        }
+        return percentageAccountByClient;
     }
 }

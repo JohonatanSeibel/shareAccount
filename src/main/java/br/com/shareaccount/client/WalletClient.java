@@ -1,6 +1,5 @@
 package br.com.shareaccount.client;
 
-import br.com.shareaccount.domain.Customer;
 import br.com.shareaccount.dto.WalletDTO;
 import br.com.shareaccount.dto.WalletResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;

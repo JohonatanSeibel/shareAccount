@@ -7,6 +7,6 @@ public class WalletException  extends ConvertibleException {
     public WalletException(String msg){super(msg);}
     @Override
     public HttpStatus getStatus() {
-        return HttpStatus.INTERNAL_SERVER_ERROR;
+        return HttpStatus.SERVICE_UNAVAILABLE;
     }
 }

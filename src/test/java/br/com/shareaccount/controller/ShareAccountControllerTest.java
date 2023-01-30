@@ -34,7 +34,7 @@ public class ShareAccountControllerTest {
     }
 
     public ResultActions makeRequest(String json, String httpMethod) throws Exception{
-        return mockMvc.perform(MockMvcRequestBuilders.request(httpMethod, URI.create(""))
+        return mockMvc.perform(MockMvcRequestBuilders.request(httpMethod, URI.create("/shareAccount"))
                 .contentType(MediaType.APPLICATION_JSON).content(json));
     }
 
@@ -45,6 +45,6 @@ public class ShareAccountControllerTest {
 
         String json = mapper.writeValueAsString(request);
 
-        ResultActions actions = makeRequest(json, "GET").andExpect(status().is(404));
+        ResultActions actions = makeRequest(json, "POST").andExpect(status().is(200));
     }
 }

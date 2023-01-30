@@ -63,13 +63,16 @@ public class TransactionService {
     }
 
     private void validateClientTransaction(Transaction transaction){
-        if(!TransactionTypeEnum.PARTIAL.equals(transaction.getTransactionType()))
+        if(transaction.getTransactionType() != null &&
+                !TransactionTypeEnum.PARTIAL.equals(transaction.getTransactionType()))
             throw new ClientException("Client cannot create transactions of type FULL");
 
-        if(!OperationTypeEnum.CREDIT.equals(transaction.getOperationType()))
+        if(transaction.getOperationType() != null
+                && !OperationTypeEnum.CREDIT.equals(transaction.getOperationType()))
             throw new ClientException("Client cannot have debit transaction");
 
-        if(!ValueTypeEnum.CURRENCY.equals(transaction.getValueType()))
+        if(transaction.getValueType() != null
+                && !ValueTypeEnum.CURRENCY.equals(transaction.getValueType()))
             throw new ClientException("Client cannot have percentage currency transaction");
     }
 }

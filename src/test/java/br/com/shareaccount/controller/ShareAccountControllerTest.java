@@ -1,5 +1,7 @@
 package br.com.shareaccount.controller;
 
+import br.com.shareaccount.dto.AccountRequestDTO;
+import br.com.shareaccount.exception.ClientException;
 import br.com.shareaccount.scenario.RequestScenario;
 import br.com.shareaccount.scenario.ResponseScenario;
 import br.com.shareaccount.service.ShareAccountService;
@@ -13,12 +15,15 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.net.URI;
 
-@WebMvcTest(ShareAccountControllerTest.class)
+@WebMvcTest(ShareAccountController.class)
 public class ShareAccountControllerTest {
 
     @Autowired
@@ -41,10 +46,28 @@ public class ShareAccountControllerTest {
     @Test
     void callRoteShareAccountWithSuccess() throws Exception {
         var request = RequestScenario.getRequest();
-        when(shareAccountService.execute(request)).thenReturn(ResponseScenario.getResponse());
+        when(shareAccountService.execute(any(AccountRequestDTO.class))).thenReturn(ResponseScenario.getResponse());
 
         String json = mapper.writeValueAsString(request);
 
-        ResultActions actions = makeRequest(json, "POST").andExpect(status().is(200));
+        makeRequest(json, "POST").andExpect(status().is(200))
+                .andExpect(jsonPath("$.accountAmount").exists())
+                .andExpect(jsonPath("$.quantityClients").exists())
+                .andExpect(jsonPath("$.discountValue").exists())
+                .andExpect(jsonPath("$.customersInvoiced").isArray())
+                .andExpect(jsonPath("$.customersInvoiced[0].name").exists())
+                .andExpect(jsonPath("$.customersInvoiced[0].valueToPay").exists())
+                .andExpect(jsonPath("$.customersInvoiced[0].billingWalletLink").exists());
     }
+    @Test
+    void callRoteShareAccountAndClientNotFound() throws Exception{
+        var request = RequestScenario.getRequest();
+        when(shareAccountService.execute(any(AccountRequestDTO.class)))
+                .thenThrow(ClientException.class);
+        String json = mapper.writeValueAsString(request);
+
+        makeRequest(json, "POST")
+                .andExpect(status().is(400));
+    }
+
 }

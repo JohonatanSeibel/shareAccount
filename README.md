@@ -6,7 +6,7 @@ A aplicação foi desenvolvida mediante uma necessidade de resolver um problema 
 
 * ### O ponto de partida foi o desafio: [link](https://github.com/ArturSch/DesafioBackendSE) ###
 * ### [Miro](https://miro.com/app/board/uXjVPuBa2vM=/) ###
-* ### [Doc De Integração](https://docs.google.com/document/d/1qXoLNy-eYq6zLZ7JMFu1o8tPCiRpJTm1S160tMafGuU/edit#heading=h.crlwat8lemyf) ###
+* ### [Doc De Integração](https://drive.google.com/file/d/1pa3nhwha25mmNthUEADZEuKN_UPTGh5R/view?usp=sharing) ###
 * ### [Swagger](http://ec2-15-228-82-5.sa-east-1.compute.amazonaws.com:8080/swagger-ui/index.html) ###
 
 # Tecnologia

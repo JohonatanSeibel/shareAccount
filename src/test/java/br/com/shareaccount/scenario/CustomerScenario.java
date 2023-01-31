@@ -2,7 +2,7 @@ package br.com.shareaccount.scenario;
 
 import br.com.shareaccount.domain.Customer;
 import br.com.shareaccount.domain.Transaction;
-import br.com.shareaccount.dto.CustomerDTO;
+import br.com.shareaccount.domain.CustomerDTO;
 import br.com.shareaccount.enumeration.CustomerTypeEnum;
 import br.com.shareaccount.enumeration.OperationTypeEnum;
 import br.com.shareaccount.enumeration.TransactionTypeEnum;

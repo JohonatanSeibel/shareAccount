@@ -1,7 +1,7 @@
 package br.com.shareaccount.service;
 
 import br.com.shareaccount.client.WalletClient;
-import br.com.shareaccount.dto.WalletDTO;
+import br.com.shareaccount.domain.WalletDTO;
 import br.com.shareaccount.exception.WalletException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

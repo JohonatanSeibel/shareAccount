@@ -1,4 +1,4 @@
-package br.com.shareaccount.dto;
+package br.com.shareaccount.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

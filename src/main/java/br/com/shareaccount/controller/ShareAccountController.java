@@ -1,7 +1,7 @@
 package br.com.shareaccount.controller;
 
-import br.com.shareaccount.dto.AccountRequestDTO;
-import br.com.shareaccount.dto.AccountResponseDTO;
+import br.com.shareaccount.domain.AccountRequestDTO;
+import br.com.shareaccount.domain.AccountResponseDTO;
 import br.com.shareaccount.service.ShareAccountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

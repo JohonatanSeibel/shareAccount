@@ -1,6 +1,6 @@
 package br.com.shareaccount.scenario;
 
-import br.com.shareaccount.dto.AccountResponseDTO;
+import br.com.shareaccount.domain.AccountResponseDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

@@ -1,7 +1,7 @@
 package br.com.shareaccount.service;
 
-import br.com.shareaccount.dto.AccountRequestDTO;
-import br.com.shareaccount.dto.AccountResponseDTO;
+import br.com.shareaccount.domain.AccountRequestDTO;
+import br.com.shareaccount.domain.AccountResponseDTO;
 import br.com.shareaccount.enumeration.OperationTypeEnum;
 import br.com.shareaccount.enumeration.TransactionTypeEnum;
 import br.com.shareaccount.exception.ShareAccountException;

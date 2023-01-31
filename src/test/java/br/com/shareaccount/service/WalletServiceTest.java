@@ -1,8 +1,8 @@
 package br.com.shareaccount.service;
 
 import br.com.shareaccount.client.WalletClient;
-import br.com.shareaccount.dto.WalletDTO;
-import br.com.shareaccount.dto.WalletResponseDTO;
+import br.com.shareaccount.domain.WalletDTO;
+import br.com.shareaccount.domain.WalletResponseDTO;
 import br.com.shareaccount.exception.WalletException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

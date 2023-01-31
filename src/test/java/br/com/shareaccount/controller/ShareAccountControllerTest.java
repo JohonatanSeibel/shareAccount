@@ -1,6 +1,6 @@
 package br.com.shareaccount.controller;
 
-import br.com.shareaccount.dto.AccountRequestDTO;
+import br.com.shareaccount.domain.AccountRequestDTO;
 import br.com.shareaccount.exception.ClientException;
 import br.com.shareaccount.scenario.RequestScenario;
 import br.com.shareaccount.scenario.ResponseScenario;

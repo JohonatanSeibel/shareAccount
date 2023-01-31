@@ -1,4 +1,4 @@
-package br.com.shareaccount.dto;
+package br.com.shareaccount.domain;
 
 import br.com.shareaccount.domain.Customer;
 import lombok.*;

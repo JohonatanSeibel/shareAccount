@@ -1,6 +1,6 @@
 package br.com.shareaccount.service;
 
-import br.com.shareaccount.dto.CustomerDTO;
+import br.com.shareaccount.domain.CustomerDTO;
 import br.com.shareaccount.enumeration.TransactionTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

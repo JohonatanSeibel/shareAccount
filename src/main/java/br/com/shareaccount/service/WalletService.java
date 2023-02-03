@@ -23,7 +23,7 @@ public class WalletService {
 
     public String getBillingWallet(BigDecimal value, String name){
         log.info("Get billing wallet link for client {}", name);
-        var wallet = new WalletDTO(value, "Account", name.toString());
+        var wallet = new WalletDTO(value, "Account", name);
         try {
             var billingWallet =  client.getPixCode(TOKEN, wallet);
             var billingWalletLink = billingWallet.getBillingWalletLink();
